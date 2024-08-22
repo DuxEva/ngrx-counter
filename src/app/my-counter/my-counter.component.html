@@ -1,0 +1,49 @@
+<div class="w-full h-screen flex items-center justify-center">
+  <div class="h-fit w-[40%] p-5 flex flex-col items-center">
+    <p class="block text-4xl font-bold mb-7 text-center">
+      {{ count$ | async }}
+    </p>
+    <div class="flex gap-5 justify-center">
+      <app-button
+        [text]="'Increment'"
+        [backgroundColor]="'bg-purple'"
+        [textColor]="'text-white'"
+        [width]="'w-32'"
+        [borderRadius]="'rounded-lg'"
+        (click)="increment()"
+      >
+      </app-button>
+
+      <app-button
+        [text]="'Decrement'"
+        [backgroundColor]="'bg-green'"
+        [textColor]="'text-white'"
+        [width]="'w-32'"
+        [borderRadius]="'rounded-lg'"
+        (click)="decrement()"
+      ></app-button>
+
+      <app-button
+        [text]="'Reset'"
+        [backgroundColor]="'bg-darkRed'"
+        [textColor]="'text-white'"
+        [width]="'w-32'"
+        [borderRadius]="'rounded-lg'"
+        (click)="reset()"
+      ></app-button>
+    </div>
+    <input
+      class="py-2 px-2 border-2 outline-none block mt-7 text-black w-[75%] rounded-xl"
+      [(ngModel)]="incrementByValue"
+      type="number"
+    />
+    <app-button
+      [text]="'Increment by'"
+      [backgroundColor]="'bg-darkRed'"
+      [textColor]="'text-white mt-5'"
+      [width]="'w-40'"
+      [borderRadius]="'rounded-lg'"
+      (click)="incrementBy()"
+    ></app-button>
+  </div>
+</div>
