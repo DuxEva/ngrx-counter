@@ -1,9 +1,9 @@
 <div class="w-full h-screen flex items-center justify-center">
-  <div class="h-fit w-[40%] p-5 flex flex-col items-center">
+  <div class="h-fit w-[95%] sm:w-[60%] p-5 flex flex-col items-center">
     <p class="block text-4xl font-bold mb-7 text-center">
       {{ count$ | async }}
     </p>
-    <div class="flex gap-5 justify-center">
+    <div class="grid grid-cols-2 gap-7 justify-center">
       <app-button
         [text]="'Increment'"
         [backgroundColor]="'bg-purple'"
@@ -41,7 +41,7 @@
       ></app-button>
     </div>
     <input
-      class="py-2 px-2 border-2 outline-none block mt-7 text-black w-[75%] rounded-xl"
+      class="py-2 px-2 border-2 outline-none block mt-7 text-black w-[19rem] rounded-xl"
       [(ngModel)]="incrementByValue"
       type="number"
     />
@@ -54,7 +54,7 @@
       (click)="incrementBy()"
     ></app-button>
     <input
-      class="py-2 px-2 border-2 outline-none block mt-7 text-black w-[75%] rounded-xl"
+      class="py-2 px-2 border-2 outline-none block mt-7 text-black w-[19rem] rounded-xl"
       [(ngModel)]="decreaseByValue"
       type="number"
     />
