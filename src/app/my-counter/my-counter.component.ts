@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -53,28 +53,37 @@ export class MyCounterComponent {
     );
     this.getHistorySumFromStore();
   }
+
   decrement() {
-    this.store.dispatch(decrement());
-    this.store.dispatch(
-      decrementHistory({
-        historyLastNumber: 1,
-        history: [],
-        historySum: 0,
-      })
-    );
-    this.getHistorySumFromStore();
+    this.count$.subscribe((currentCount) => {
+      if (currentCount > 0) {
+        this.store.dispatch(decrement());
+        this.store.dispatch(
+          decrementHistory({
+            historyLastNumber: 1,
+            history: [],
+            historySum: 0,
+          })
+        );
+        this.getHistorySumFromStore();
+      }
+    });
   }
 
   decrementBy() {
-    this.store.dispatch(incrementBy({ value: -this.decreaseByValue }));
-    this.store.dispatch(
-      decrementHistory({
-        historyLastNumber: this.decreaseByValue,
-        history: [],
-        historySum: 0,
-      })
-    );
-    this.getHistorySumFromStore();
+    this.count$.subscribe((currentCount) => {
+      if (currentCount > 0) {
+        this.store.dispatch(incrementBy({ value: -this.decreaseByValue }));
+        this.store.dispatch(
+          decrementHistory({
+            historyLastNumber: this.decreaseByValue,
+            history: [],
+            historySum: 0,
+          })
+        );
+        this.getHistorySumFromStore();
+      }
+    });
   }
 
   undo() {

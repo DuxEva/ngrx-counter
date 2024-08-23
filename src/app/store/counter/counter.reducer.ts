@@ -20,7 +20,12 @@ export const counterReducer = createReducer(
   })),
   on(decrement, (state) => ({
     ...state,
-    counter: state.counter - 1,
+    counter: Math.max(state.counter - 1, 0),
+  })),
+
+  on(incrementBy, (state, actions) => ({
+    ...state,
+    counter: Math.max(state.counter - actions.value, 0),
   })),
   on(reset, (state) => ({
     ...state,

@@ -24,14 +24,14 @@ export const historyCounterReducer = createReducer(
   on(incrementHistory, (state, actions) => ({
     ...state,
     history: [...state.history, actions.historyLastNumber],
-    historySum: state.historySum + actions.historyLastNumber,
+    historySum: Math.max(state.historySum - actions.historyLastNumber, 0),
     historyLastNumber: actions.historyLastNumber,
   })),
 
   on(decrementHistory, (state, actions) => ({
     ...state,
     history: [...state.history, -actions.historyLastNumber],
-    historySum: state.historySum - actions.historyLastNumber,
+    historySum: Math.max(state.historySum - actions.historyLastNumber, 0),
     historyLastNumber: -actions.historyLastNumber,
   })),
 
