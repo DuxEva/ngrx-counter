@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import {
   decrement,
+  decrementBy,
   increment,
   incrementBy,
   reset,
@@ -25,6 +26,7 @@ export class MyCounterComponent {
   count$: Observable<number>;
   incrementByValue: number = 1;
   decreaseByValue: number = 1;
+  counter: number = 0;
 
   constructor(private store: Store<AppState>) {
     this.count$ = store.select(selectCount);
@@ -55,34 +57,30 @@ export class MyCounterComponent {
   }
 
   decrement() {
-    this.count$.subscribe((currentCount) => {
-      if (currentCount > 0) {
-        this.store.dispatch(decrement());
-        this.store.dispatch(
-          decrementHistory({
-            historyLastNumber: 1,
-            history: [],
-            historySum: 0,
-          })
-        );
-        this.getHistorySumFromStore();
-      }
+    this.count$.pipe(take(1)).subscribe((currentCount) => {
+      this.store.dispatch(decrement());
+      this.store.dispatch(
+        decrementHistory({
+          historyLastNumber: 1,
+          history: [],
+          historySum: 0,
+        })
+      );
+      this.getHistorySumFromStore();
     });
   }
 
   decrementBy() {
-    this.count$.subscribe((currentCount) => {
-      if (currentCount > 0) {
-        this.store.dispatch(incrementBy({ value: -this.decreaseByValue }));
-        this.store.dispatch(
-          decrementHistory({
-            historyLastNumber: this.decreaseByValue,
-            history: [],
-            historySum: 0,
-          })
-        );
-        this.getHistorySumFromStore();
-      }
+    this.count$.pipe(take(1)).subscribe((currentCount) => {
+      this.store.dispatch(decrementBy({ value: this.decreaseByValue }));
+      this.store.dispatch(
+        decrementHistory({
+          historyLastNumber: this.decreaseByValue,
+          history: [],
+          historySum: 0,
+        })
+      );
+      this.getHistorySumFromStore();
     });
   }
 

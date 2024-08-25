@@ -9,4 +9,9 @@ export const incrementBy = createAction(
   props<{ value: number }>()
 );
 export const decrement = createAction('[Counter] Decrement');
+export const decrementBy = createAction(
+  '[Counter] DecrementBy',
+  props<{ value: number }>()
+);
+
 export const reset = createAction('[Counter] Reset');

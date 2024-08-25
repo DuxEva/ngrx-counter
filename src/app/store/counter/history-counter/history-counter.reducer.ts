@@ -6,7 +6,7 @@ import {
   undo,
 } from './history-counter.actions';
 import { reset } from '../counter.actions';
-import { Action } from 'rxjs/internal/scheduler/Action';
+
 export interface HistoryCounterState {
   history: number[];
   historySum: number;
@@ -35,10 +35,16 @@ export const historyCounterReducer = createReducer(
     historyLastNumber: -actions.historyLastNumber,
   })),
 
-  on(undo, (state) => ({
-    ...state,
-    history: state.history.slice(0, -1),
-  })),
+  on(undo, (state) => {
+    const lastValue = state.history[state.history.length - 1];
+    const newHistory = state.history.slice(0, -1);
+    const newHistorySum = newHistory.reduce((acc, curr) => acc + curr, 0);
+    return {
+      ...state,
+      history: newHistory,
+      historySum: newHistorySum,
+    };
+  }),
 
   on(reset, (state) => ({
     ...state,

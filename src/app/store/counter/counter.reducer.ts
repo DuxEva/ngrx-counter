@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { decrement, increment, incrementBy, reset } from './counter.actions';
+import { decrement, decrementBy, increment, incrementBy, reset } from './counter.actions';
 
 export interface CounterState {
   counter: number;
@@ -23,7 +23,7 @@ export const counterReducer = createReducer(
     counter: Math.max(state.counter - 1, 0),
   })),
 
-  on(incrementBy, (state, actions) => ({
+  on(decrementBy, (state, actions) => ({
     ...state,
     counter: Math.max(state.counter - actions.value, 0),
   })),
